@@ -2,7 +2,7 @@ import requests
 import random
 import time
 
-API_URL = "http://localhost:8000"
+API_URL = "https://inventory-backend-b6ya.onrender.com"
 
 # Guest credentials
 GUEST_EMAIL = "guest@inventoryos.com"
@@ -66,10 +66,10 @@ def seed_data():
     # 4. Create Customers
     print("Creating customers...")
     customers = [
-        {"name": "Acme Corp", "email": "procurement@acme.com", "phone": "555-0101", "address": "123 Business Rd, New York, NY"},
-        {"name": "TechStart Inc", "email": "purchasing@techstart.io", "phone": "555-0102", "address": "456 Innovation Blvd, SF, CA"},
-        {"name": "Global Retail", "email": "orders@globalretail.net", "phone": "555-0103", "address": "789 Enterprise Way, Chicago, IL"},
-        {"name": "Sarah Jenkins", "email": "s.jenkins@example.com", "phone": "555-0104", "address": "321 Residential St, Austin, TX"},
+        {"full_name": "Acme Corp", "email": "procurement@acme.com", "phone_number": "555-0101"},
+        {"full_name": "TechStart Inc", "email": "purchasing@techstart.io", "phone_number": "555-0102"},
+        {"full_name": "Global Retail", "email": "orders@globalretail.net", "phone_number": "555-0103"},
+        {"full_name": "Sarah Jenkins", "email": "s.jenkins@example.com", "phone_number": "555-0104"},
     ]
     
     customer_ids = []
@@ -77,6 +77,8 @@ def seed_data():
         res = requests.post(f"{API_URL}/api/customers/", json=c, headers=headers)
         if res.status_code == 200:
             customer_ids.append(res.json()["id"])
+        else:
+            print("Failed to create customer:", res.status_code, res.text)
         time.sleep(0.5)
         
     # Fetch existing customers
