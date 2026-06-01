@@ -138,7 +138,7 @@ export default function DashboardPage() {
             ) : (
               <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                 {data.low_stock_products.slice(0, 5).map(p => (
-                  <div key={p.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.75rem', background: '#f8fafc', borderRadius: '0.5rem', border: '1px solid #e2e8f0' }}>
+                  <div key={p.id} className="low-stock-item">
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                       <div style={{ width: '40px', height: '40px', background: '#ffffff', borderRadius: '0.375rem', border: '1px solid #e2e8f0', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#94a3b8' }}>
                         <Package size={20} />
@@ -148,16 +148,16 @@ export default function DashboardPage() {
                         <div style={{ color: '#64748b', fontSize: '0.75rem' }}>SKU: {p.sku}</div>
                       </div>
                     </div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                      <div style={{ textAlign: 'right' }}>
-                        <div style={{ fontSize: '0.875rem', fontWeight: '600', color: p.quantity_in_stock === 0 ? '#ef4444' : '#f59e0b' }}>
+                    <div className="low-stock-actions">
+                      <div style={{ textAlign: 'right', flex: 1 }}>
+                        <div style={{ fontSize: '0.875rem', fontWeight: '600', color: p.quantity_in_stock === 0 ? '#ef4444' : '#f59e0b', textAlign: 'left' }}>
                           {p.quantity_in_stock} left
                         </div>
-                        <div style={{ width: '60px', height: '4px', background: '#e2e8f0', borderRadius: '2px', marginTop: '4px', overflow: 'hidden' }}>
+                        <div style={{ width: '100%', minWidth: '60px', height: '4px', background: '#e2e8f0', borderRadius: '2px', marginTop: '4px', overflow: 'hidden' }}>
                           <div style={{ width: `${Math.min(100, (p.quantity_in_stock / 20) * 100)}%`, height: '100%', background: p.quantity_in_stock === 0 ? '#ef4444' : '#f59e0b' }} />
                         </div>
                       </div>
-                      <button className="btn btn-secondary" style={{ padding: '0.375rem 0.75rem', fontSize: '0.75rem' }} onClick={() => { setRestockProduct(p); setRestockAmount(''); }}>Restock</button>
+                      <button className="btn btn-secondary" style={{ padding: '0.375rem 0.75rem', fontSize: '0.75rem', whiteSpace: 'nowrap' }} onClick={() => { setRestockProduct(p); setRestockAmount(''); }}>Restock</button>
                     </div>
                   </div>
                 ))}
