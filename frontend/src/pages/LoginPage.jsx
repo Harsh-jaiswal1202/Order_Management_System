@@ -31,7 +31,7 @@ export default function LoginPage() {
           await register('guest@inventoryos.com', 'guest123');
           toast.success('Demo account created', { icon: '✓', style: { borderRadius: '8px', background: '#d1fae5', color: '#065f46', border: '1px solid #a7f3d0', padding: '12px 16px' } });
           navigate('/');
-        } catch (regErr) {
+        } catch {
           toast.error('Demo login failed');
         }
       } else {
