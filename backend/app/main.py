@@ -41,6 +41,11 @@ app.include_router(customers_router, dependencies=[Depends(get_current_user)])
 app.include_router(orders_router, dependencies=[Depends(get_current_user)])
 app.include_router(dashboard_router, dependencies=[Depends(get_current_user)])
 
+@app.get("/", tags=["Root"])
+def read_root():
+    """Root endpoint to verify the API is running."""
+    return {"message": "Welcome to the Order Management System API", "status": "running"}
+
 
 @app.on_event("startup")
 def on_startup():
