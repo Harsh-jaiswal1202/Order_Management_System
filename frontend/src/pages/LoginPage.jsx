@@ -9,14 +9,43 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, register } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await handleLoginAttempt(email, password);
+  };
+
+  const handleGuestLogin = async () => {
+    setEmail('guest@inventoryos.com');
+    setPassword('guest123');
     setLoading(true);
     try {
-      await login(email, password);
+      await login('guest@inventoryos.com', 'guest123');
+      toast.success('Demo login successful', { icon: '✓', style: { borderRadius: '8px', background: '#d1fae5', color: '#065f46', border: '1px solid #a7f3d0', padding: '12px 16px' } });
+      navigate('/');
+    } catch (err) {
+      if (err.response?.status === 400 || err.response?.status === 401) {
+        try {
+          await register('guest@inventoryos.com', 'guest123');
+          toast.success('Demo account created', { icon: '✓', style: { borderRadius: '8px', background: '#d1fae5', color: '#065f46', border: '1px solid #a7f3d0', padding: '12px 16px' } });
+          navigate('/');
+        } catch (regErr) {
+          toast.error('Demo login failed');
+        }
+      } else {
+        toast.error('Demo login failed');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleLoginAttempt = async (loginEmail, loginPassword) => {
+    setLoading(true);
+    try {
+      await login(loginEmail, loginPassword);
       toast.success('Login successful', {
         icon: '✓',
         style: {
@@ -150,16 +179,28 @@ export default function LoginPage() {
               <a href="#" style={{ color: 'var(--accent-primary)', fontSize: '0.875rem', fontWeight: '500' }}>Forgot password?</a>
             </div>
 
-            <button 
-              type="submit" 
-              className="btn btn-primary" 
-              style={{ width: '100%', padding: '0.75rem', fontSize: '1rem' }}
-              disabled={loading}
-            >
-              {loading ? <div className="spinner" /> : (
-                <><LogIn size={18} /> Sign In</>
-              )}
-            </button>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+              <button 
+                type="submit" 
+                className="btn btn-primary" 
+                style={{ width: '100%', padding: '0.75rem', fontSize: '1rem' }}
+                disabled={loading}
+              >
+                {loading ? <div className="spinner" /> : (
+                  <><LogIn size={18} /> Sign In</>
+                )}
+              </button>
+
+              <button 
+                type="button" 
+                className="btn btn-secondary" 
+                style={{ width: '100%', padding: '0.75rem', fontSize: '1rem', borderStyle: 'dashed' }}
+                onClick={handleGuestLogin}
+                disabled={loading}
+              >
+                <Eye size={18} /> View Demo as Guest
+              </button>
+            </div>
             
             <div style={{ display: 'flex', alignItems: 'center', margin: '2rem 0' }}>
               <div style={{ flex: 1, height: '1px', background: 'var(--border-color)' }} />
