@@ -88,7 +88,7 @@ export default function DashboardPage() {
         ))}
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.5rem', alignItems: 'start' }}>
+      <div className="dashboard-grid">
         {/* Recent Orders */}
         <div className="card" style={{ padding: '0' }}>
           <div className="table-header" style={{ borderBottom: 'none', paddingBottom: '0.5rem' }}>

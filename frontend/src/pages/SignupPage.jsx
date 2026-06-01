@@ -36,18 +36,9 @@ export default function SignupPage() {
   };
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', background: '#ffffff' }}>
+    <div className="auth-layout">
       {/* Left Panel - Dark Navy */}
-      <div style={{ 
-        flex: 1, 
-        background: 'var(--bg-sidebar-header)', 
-        color: 'white',
-        padding: '3rem',
-        display: 'flex',
-        flexDirection: 'column',
-        position: 'relative',
-        overflow: 'hidden'
-      }}>
+      <div className="auth-left">
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: 'auto' }}>
           <div style={{ background: 'rgba(255,255,255,0.1)', padding: '0.5rem', borderRadius: '0.5rem' }}>
             <Hexagon size={24} color="#ffffff" fill="none" />
@@ -102,7 +93,7 @@ export default function SignupPage() {
       </div>
 
       {/* Right Panel - White */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', padding: '3rem', justifyContent: 'center', alignItems: 'center' }}>
+      <div className="auth-right">
         <div style={{ width: '100%', maxWidth: '400px' }}>
           <h2 style={{ fontSize: '1.75rem', fontWeight: '700', color: 'var(--bg-sidebar-header)', marginBottom: '0.5rem' }}>Create Account</h2>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', marginBottom: '2.5rem' }}>Sign up for a new account</p>
